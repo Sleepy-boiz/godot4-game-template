@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dcksp7qexy805"]
+[gd_scene load_steps=19 format=3 uid="uid://dcksp7qexy805"]
 
 [ext_resource type="Script" path="res://Scripts/game_mangaer.gd" id="1_i0rha"]
 [ext_resource type="Texture2D" uid="uid://cknrq11kl0u3o" path="res://Tilemap/tilemap.png" id="1_r6ce3"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b2e4e20m5628t" path="res://Scenes/chicken.tscn" id="4_rbcg6"]
 [ext_resource type="FontFile" uid="uid://bql50dywnr8ut" path="res://brackeys_platformer_assets/fonts/PixelOperator8-Bold.ttf" id="5_g6tmj"]
 [ext_resource type="FontFile" uid="uid://cind5xijjrypx" path="res://brackeys_platformer_assets/fonts/PixelOperator8.ttf" id="6_kl2wh"]
+[ext_resource type="Script" path="res://Gameplay/Levels/end_message_area.gd" id="8_rcre5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qx51r"]
 texture = ExtResource("1_r6ce3")
@@ -588,7 +589,46 @@ separation = Vector2i(1, 1)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_qx51r")
 
+[sub_resource type="Animation" id="Animation_kmlk0"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-65, 29)]
+}
+
+[sub_resource type="Animation" id="Animation_8uckw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-65, 29)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fnf08"]
+_data = {
+"Death": SubResource("Animation_kmlk0"),
+"RESET": SubResource("Animation_8uckw")
+}
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_btrnp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7kj3g"]
+size = Vector2(25, 16)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1gkbx"]
 normal = Vector2(0.999822, -0.0188646)
@@ -627,6 +667,12 @@ limit_top = -925
 limit_right = 500
 limit_bottom = 64
 position_smoothing_enabled = true
+
+[node name="DeathPos" type="AnimationPlayer" parent="Player"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_fnf08")
+}
 
 [node name="Killzone" parent="." instance=ExtResource("3_2byaq")]
 
@@ -747,6 +793,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="End Message" type="Label" parent="."]
+visible = false
 offset_left = 152.0
 offset_top = -926.0
 offset_right = 229.0
@@ -756,6 +803,13 @@ theme_override_font_sizes/font_size = 8
 text = "Thanks for playing!"
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="End Message Area" type="Area2D" parent="."]
+script = ExtResource("8_rcre5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="End Message Area"]
+position = Vector2(271.5, -920)
+shape = SubResource("RectangleShape2D_7kj3g")
 
 [node name="Start message" type="Label" parent="."]
 offset_left = 56.0
@@ -799,6 +853,4 @@ shape = SubResource("WorldBoundaryShape2D_javp3")
 position = Vector2(141, -927)
 shape = SubResource("WorldBoundaryShape2D_siwq6")
 
-[node name="SpawnPosition" type="Marker2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(-64, 29)
+[connection signal="body_entered" from="End Message Area" to="End Message Area" method="_on_body_entered"]

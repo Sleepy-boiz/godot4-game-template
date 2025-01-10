@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://6jglc0ywvfov"]
+[gd_scene load_steps=16 format=3 uid="uid://6jglc0ywvfov"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_gsmdm"]
 [ext_resource type="Texture2D" uid="uid://bwmqixvx0cv8o" path="res://Tiny Wonder Farm Free/characters/main character/walk and idle.png" id="2_voilr"]
@@ -101,14 +101,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_hj2iu"]
 radius = 7.0
 
-[sub_resource type="Animation" id="Animation_8tpnr"]
-resource_name = "death"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ikgn0"]
-_data = {
-"death": SubResource("Animation_8tpnr")
-}
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
@@ -123,9 +115,3 @@ frame_progress = 0.547755
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_hj2iu")
-
-[node name="death animation" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_ikgn0")
-}
