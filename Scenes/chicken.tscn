@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2e4e20m5628t"]
+
+[ext_resource type="Texture2D" uid="uid://bmissg3jnn2l3" path="res://Chicken_Sprite_Sheet.png" id="1_nnwlp"]
+[ext_resource type="Texture2D" uid="uid://cj8d6qdo7ni0p" path="res://pirates.v1.png" id="2_be4ro"]
+[ext_resource type="FontFile" uid="uid://cind5xijjrypx" path="res://brackeys_platformer_assets/fonts/PixelOperator8.ttf" id="3_m7njp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cimm"]
+atlas = ExtResource("1_nnwlp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v48uy"]
+atlas = ExtResource("1_nnwlp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha1s8"]
+atlas = ExtResource("1_nnwlp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aumsa"]
+atlas = ExtResource("1_nnwlp")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5212x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cimm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v48uy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha1s8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aumsa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Chicken" type="Node2D"]
+
+[node name="Chiken" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5212x")
+autoplay = "default"
+frame_progress = 0.638223
+
+[node name="Text" type="Sprite2D" parent="."]
+position = Vector2(-14, -48)
+scale = Vector2(5.375, 5.375)
+texture = ExtResource("2_be4ro")
+hframes = 16
+vframes = 16
+frame = 9
+
+[node name="Sprite2D2" type="Sprite2D" parent="Text"]
+position = Vector2(16, 0)
+texture = ExtResource("2_be4ro")
+hframes = 16
+vframes = 16
+frame = 10
+
+[node name="Sprite2D3" type="Sprite2D" parent="Text"]
+position = Vector2(-16, 0)
+texture = ExtResource("2_be4ro")
+hframes = 16
+vframes = 16
+frame = 8
+
+[node name="I feel so sigma" type="Label" parent="."]
+visible = false
+offset_left = -56.0
+offset_top = -46.0
+offset_right = 20.0
+offset_bottom = -22.0
+theme_override_fonts/font = ExtResource("3_m7njp")
+theme_override_font_sizes/font_size = 8
+text = "i feel so sigma"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
